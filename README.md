@@ -1,5 +1,11 @@
-# UNTC-scraper
+## UNTC-scraper
 Scrape United Nations Treaty Collections: https://treaties.un.org/Pages/AdvanceSearch.aspx?tab=UNTS&clang=_en
+
+#### Required packages:
+Run the following to ensure that you have the packages to run the script.
+```bash
+pip install -r requirements.txt
+```
 
 #### Example usage:
 ```bash 
