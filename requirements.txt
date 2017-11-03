@@ -1,0 +1,3 @@
+mechanize
+pandas
+beautifulsoup4
