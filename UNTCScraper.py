@@ -1,6 +1,8 @@
 __author__ = 'Zhiya Zuo'
 __email__ = 'zhiyazuo@gmail.com'
 
+import time
+import random
 import warnings
 import mechanize
 import pandas as pd
@@ -58,6 +60,8 @@ class UNTCScraper(object):
         self.df = parse_tr_list(self._parse(content))
 
         for pageno in range(2, self.endpage+1):
+            ## sleep < 10s
+            time.sleep(random.random()*10)
             self.df = self.df.append(parse_tr_list(self.scrape_page(pageno)), ignore_index=True)
 
     def scrape_page(self, pageno):
