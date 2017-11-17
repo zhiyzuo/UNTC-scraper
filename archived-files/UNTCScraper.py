@@ -23,13 +23,13 @@ class UNTCScraper(object):
 
         ctl = self.br.form.find_control('__EVENTTARGET')
         ctl.readonly = False
-        self.br.form['__EVENTTARGET'] = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$dgTreaty'
+        ## select "Show only original agreement"
+        self.br.form['__EVENTTARGET'] = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$dgTreaty$2'
         ctl.readonly = True
-
-        pageno = 1
 
         ctl = self.br.form.find_control('__EVENTARGUMENT')
         ctl.readonly = False
+        pageno = 1
         self.br.form['__EVENTARGUMENT'] = 'Page$%d'%pageno
         ctl.readonly = True
 
@@ -37,6 +37,15 @@ class UNTCScraper(object):
 
         ctl = self.br.form.find_control("ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$btnSubmit")
         ctl.disabled = False
+
+    def set_treaty_type(self, ):
+        #print self.br.form['ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$drpAttribute']
+        ctl = self.br.form.find_control('ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$drpAttribute')
+        ctl.readonly = False
+        # ['treaty_type_indicator']
+        #print self.br.form['ctl00_ctl00_ContentPlaceHolder1_ContentPlaceHolderInnerPage_chkboxValues']
+        #open_multi = 'ctl00$ctl00$ContentPlaceHolder1$ContentPlaceHolderInnerPage$chkboxValues'
+        #self.br.form.find_control(open_multi).get(open_multi+'$2').selected = True
 
     def set_endpage(self, endpage):
         self.endpage = endpage
@@ -80,7 +89,3 @@ class UNTCScraper(object):
         content = Soup(self.br.response().read(), 'lxml')
         return self._parse(content)
 
-if __name__ == '__main__':
-    parser = UNTCScraper(3)
-    parser.scrape()
-    parser.df.to_csv('./tmp.csv', index=False, encoding='utf8')
